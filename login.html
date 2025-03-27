@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="login.css">
+  <!-- --------------------------------------------------------------- -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <section id="loginBack">
+
+    <div id="cortina">
+      <p id="tituloCadastro" class="titulo">BEM-VINDO DE VOLTA</p>
+      <span id="textoCadastro" class="texto">Vamos cuidar das suas finaças?</span>
+    </div>
+
+    <div id="inputsCadastro">
+      <label>CADASTRE-SE</label>
+      <input id="nomeCadastro" type="text" placeholder="" name="name" />
+      <input id="emailCadastro" type="text" placeholder="" name="email" />
+      <input id="telefoneCadastro" type="text" placeholder="" name="tel">
+      <input id="senhaCadastro" type="password" placeholder="" name="password" />
+      <button type="submit">Cadastrar</button>
+      <a href="#" class="link" id="trocarLogin">Fazer Login</a>
+    </div>
+
+
+
+    <div id="inputsLogin">
+      <label>LOGIN</label>
+      <input id="email" type="text" placeholder="" name="email" />
+      <input id="senha" type="password" placeholder="" name="password" />
+      <button type="submit">Entrar</button>
+      <a href="#" class="link" id="trocarCadastro">Ainda não possui uma conta?<br>
+        Clique aqui para criar uma!</a>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+  <script>
+   document.getElementById("trocarCadastro").addEventListener("click", function (event) {
+  event.preventDefault();
+  let cortina = document.getElementById("cortina");
+
+  // Remover qualquer animação anterior e resetar a posição
+  cortina.style.transition = 'none'; // Remove a transição por um momento
+  cortina.style.transform = 'translateX(0)'; // Reseta a posição da cortina
+
+  // Forçar o navegador a reconhecer o reset (um pequeno delay)
+  setTimeout(() => {
+    cortina.style.transition = 'transform 1s ease-out'; // Reinicia a transição suave
+    cortina.style.transform = 'translateX(100%)'; // Move a cortina para a direita
+
+    // Alterar o texto de boas-vindas para o cadastro
+    document.getElementById("tituloCadastro").innerHTML = "BEM-VINDO";
+    document.getElementById("textoCadastro").innerHTML = "Preencha seus dados para que <br> possamos organizar suas finanças!";
+  }, 50); // O delay de 50ms garante que o navegador perceba a mudança antes de aplicar a animação
+});
+
+document.getElementById("trocarLogin").addEventListener("click", function (event) {
+  event.preventDefault();
+  let cortina = document.getElementById("cortina");
+
+  // Remover qualquer animação anterior e resetar a posição
+  cortina.style.transition = 'none'; // Remove a transição por um momento
+  cortina.style.transform = 'translateX(100%)'; // Reseta a posição da cortina
+
+  // Forçar o navegador a reconhecer o reset (um pequeno delay)
+  setTimeout(() => {
+    cortina.style.transition = 'transform 1s ease-out'; // Reinicia a transição suave
+    cortina.style.transform = 'translateX(0)'; // Move a cortina para a posição inicial
+
+    // Alterar o texto de boas-vindas para o login
+    document.getElementById("tituloCadastro").innerHTML = "BEM-VINDO DE VOLTA";
+    document.getElementById("textoCadastro").innerHTML = "Vamos cuidar das suas finanças?";
+  }, 50); // O delay de 50ms garante que o navegador perceba a mudança antes de aplicar a animação
+});
+
+
+  </script>
+
+</body>
+
+</html>
