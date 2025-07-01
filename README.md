@@ -112,8 +112,8 @@ MySQL:
 - Migrations automáticas via EF Core
 
 ## 9. Custos Estimados (us-east-1)
-Serviço	Tipo	Custo
-Amplify	Frontend	$5-10
-App Runner	Backend	$10-20
-RDS MySQL	db.t3.micro	$15
-Total		$30-45/mês
+- Serviço	Tipo	Custo
+- Amplify	Frontend	$5-10
+- App Runner	Backend	$10-20
+- RDS MySQL	db.t3.micro	$15
+- Total		$30-45/mês
