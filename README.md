@@ -19,20 +19,20 @@ Este documento descreve a arquitetura, tecnologias, estrutura de pastas e estrat
 
 ## 2. Tecnologias Utilizadas
 
-| Componente | Tecnologia | Versão | Documentação |
-| --- | --- | --- | --- |
-| Frontend | Next.js | v14 | [nextjs.org/docs](http://nextjs.org/docs) |
-| Backend | [ASP.NET](http://asp.net/) Core | 8.0 | [learn.microsoft.com/aspnet/core](http://learn.microsoft.com/aspnet/core) |
-| Banco | MySQL | 8.0+ | [dev.mysql.com/doc](http://dev.mysql.com/doc) |
-| ORM | Entity Framework | 8.0 | [learn.microsoft.com/ef/core](http://learn.microsoft.com/ef/core) |
-| Infra | AWS | - | [aws.amazon.com](http://aws.amazon.com/) |
+| Componente | Tecnologia                      | Versão | Documentação                                                              |
+| ---------- | ------------------------------- | ------ | ------------------------------------------------------------------------- |
+| Frontend   | Next.js                         | v14    | [nextjs.org/docs](http://nextjs.org/docs)                                 |
+| Backend    | [ASP.NET](http://asp.net/) Core | 8.0    | [learn.microsoft.com/aspnet/core](http://learn.microsoft.com/aspnet/core) |
+| Banco      | MySQL                           | 8.0+   | [dev.mysql.com/doc](http://dev.mysql.com/doc)                             |
+| ORM        | Entity Framework                | 8.0    | [learn.microsoft.com/ef/core](http://learn.microsoft.com/ef/core)         |
+| Infra      | AWS                             | -      | [aws.amazon.com](http://aws.amazon.com/)                                  |
 
 ## 3. Estrutura de Diretórios
 
 nestfin/
-├── web/                  # Frontend Next.js
-├── backend/              # Backend [ASP.NET](http://asp.net/) Core
-├── [README.md](http://readme.md/)             # Documentação
+├── web/ # Frontend Next.js
+├── backend/ # Backend [ASP.NET](http://asp.net/) Core
+├── [README.md](http://readme.md/) # Documentação
 
 ## 4. Backend em C# ([ASP.NET](http://asp.net/) Core)
 
@@ -75,11 +75,10 @@ Next.js (exemplo de chamada à API):
 
 ```tsx
 useEffect(() => {
-  fetch('<https://api.seudominio.com/api/users>')
-    .then(res => res.json())
+  fetch("<https://api.seudominio.com/api/users>")
+    .then((res) => res.json())
     .then(setUsers);
 }, []);
-
 ```
 
 ## 6. Deploy na AWS
@@ -110,10 +109,3 @@ MySQL:
 - GitHub Actions para deploy do frontend (Amplify)
 - Docker + deploy no App Runner
 - Migrations automáticas via EF Core
-
-## 9. Custos Estimados (us-east-1)
-- Serviço	Tipo	Custo
-- Amplify	Frontend	$5-10
-- App Runner	Backend	$10-20
-- RDS MySQL	db.t3.micro	$15
-- Total		$30-45/mês
