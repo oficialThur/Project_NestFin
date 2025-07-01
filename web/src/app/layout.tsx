@@ -5,8 +5,8 @@ import '@/styles/globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NestFin - Sistema Financeiro',
-  description: 'Sistema de gestão financeira completo',
+  title: 'NestFin',
+  description: 'Sistema de gestão financeira',
 }
 
 export default function RootLayout({

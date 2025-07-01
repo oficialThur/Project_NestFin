@@ -42,16 +42,19 @@ web/
 ├── src/
 │   ├── app/                    # App Router (Next.js 14)
 │   │   ├── layout.tsx         # Layout principal da aplicação
-│   │   └── page.tsx           # Página inicial
+│   │   └── page.tsx           # Página inicial (tema escuro #122112)
 │   │
 │   ├── components/            # Componentes React organizados
-│   │   ├── ui/               # Componentes de UI básicos (botões, inputs, etc.)
+│   │   ├── ui/               # Componentes de UI básicos (shadcn/ui)
+│   │   │   └── button.tsx    # Componente Button com class-variance-authority
 │   │   ├── forms/            # Formulários reutilizáveis
 │   │   ├── layout/           # Componentes de layout (header, sidebar, etc.)
+│   │   │   └── Header.tsx    # Header principal com tema escuro
 │   │   └── charts/           # Gráficos e visualizações de dados
 │   │
 │   ├── hooks/                # Custom hooks React
 │   ├── lib/                  # Bibliotecas e configurações externas
+│   │   └── utils.ts          # Utilitários (cn function para className)
 │   ├── utils/                # Funções utilitárias e helpers
 │   ├── types/                # Definições TypeScript
 │   ├── styles/               # Estilos globais e CSS
@@ -72,7 +75,20 @@ web/
 
 - **App Router**: Nova arquitetura do Next.js 14
 - **layout.tsx**: Layout compartilhado entre todas as páginas
-- **page.tsx**: Página inicial da aplicação
+- **page.tsx**: Página inicial da aplicação com tema escuro (#122112)
+
+#### `/src/components/ui/`
+
+- **shadcn/ui**: Componentes de UI baseados em Radix UI
+- **button.tsx**: Componente Button com class-variance-authority para variantes
+- **Design System**: Componentes reutilizáveis com design consistente
+
+#### `/src/components/layout/`
+
+- **Header.tsx**: Header principal com navegação e tema escuro
+- **Tema**: Fundo #122112 com bordas brancas e texto branco
+- **Navegação**: Links para Dashboard e Metas
+- **Responsivo**: Layout adaptável para diferentes tamanhos de tela
 
 #### `/src/components/`
 
@@ -310,6 +326,46 @@ backend/
 5. **Configurar CI/CD**
 6. **Implementar logging**
 7. **Adicionar monitoramento**
+
+---
+
+## 🎨 Mudanças Recentes (Última Atualização)
+
+### Frontend - Implementações do Dia
+
+#### ✅ Componentes UI (shadcn/ui)
+
+- **Button Component**: Implementado com class-variance-authority
+- **Variantes**: default, destructive, outline, secondary, ghost, link
+- **Tamanhos**: default, sm, lg, icon
+- **Integração**: Radix UI Slot para composição
+
+#### ✅ Header Component
+
+- **Localização**: `/components/layout/Header.tsx`
+- **Tema**: Escuro (#122112) com bordas brancas
+- **Navegação**: Dashboard e Metas
+- **Responsivo**: Layout adaptável
+- **Integração**: Usa Button component do shadcn/ui
+
+#### ✅ Página Principal
+
+- **Tema**: Fundo escuro (#122112) em toda a aplicação
+- **Layout**: Flexbox com altura mínima de tela
+- **Header**: Integrado na página principal
+
+#### ✅ Utilitários
+
+- **cn function**: Implementada em `/lib/utils.ts`
+- **Class merging**: Para combinação de classes CSS
+- **Tailwind**: Integração otimizada
+
+### Design System
+
+- **Cores**: Tema escuro consistente
+- **Tipografia**: Texto branco sobre fundo escuro
+- **Componentes**: Reutilizáveis e consistentes
+- **Responsividade**: Mobile-first approach
 
 ---
 
