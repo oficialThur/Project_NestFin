@@ -1,13 +1,16 @@
-import React from 'react'
+'use client'
 
-const Footer = () => {
-  return (
-    <footer className="bg-[#122112] border-t-[3px] border-white w-full h-[150px]">
-        <div className="flex justify-between items-center h-10">
-            
-        </div>
-    </footer>
-  )
-}
+const Footer = () => (
+  <footer className="w-full h-[200px] bg-[#122112] py-6 flex flex-col items-center">
+    <div className="flex justify-center items-center gap-32 w-full max-w-4xl mb-2 p-5">
+      <a href="#" className="text-[#9EBF9E] text-sm hover:underline">Política de Privacidade</a>
+      <a href="#" className="text-[#9EBF9E] text-sm hover:underline">Termos de Serviço</a>
+      <a href="#" className="text-[#9EBF9E] text-sm hover:underline">Contate-nos</a>
+    </div>
+    <div className="text-[#9EBF9E] text-xs text-center mt-2">
+      ©2024 NestFin. Direitos reservados.
+    </div>
+  </footer>
+);
 
-export default Footer
+export default Footer;

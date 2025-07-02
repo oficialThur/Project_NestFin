@@ -13,13 +13,13 @@ interface DashboardTabsProps {
 
 const DashboardTabs: React.FC<DashboardTabsProps> = ({ selected, onSelect }) => {
   return (
-    <div className="w-[960px] mt-5">
-      <div className="flex bg-[#264526] rounded-lg p-1 gap-1">
+    <div className="w-[960px] ">
+      <div className="flex bg-[#264526] rounded-lg p-1 gap-2">
         {TABS.map(tab => (
           <button
             key={tab.value}
             onClick={() => onSelect(tab.value)}
-            className={`flex-1 py-1 transition-colors rounded-md text-center font-medium
+            className={`flex-1 py-2 transition-colors rounded-md text-center font-medium
               ${selected === tab.value
                 ? 'bg-[#1a2d1a] text-white shadow-inner'
                 : 'bg-transparent text-[#E5E8EB] hover:bg-[#1a2d1a]/60'}

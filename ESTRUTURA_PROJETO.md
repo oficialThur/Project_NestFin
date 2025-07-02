@@ -41,92 +41,164 @@ Project_NestFin/
 web/
 ├── src/
 │   ├── app/                    # App Router (Next.js 14)
-│   │   ├── layout.tsx         # Layout principal da aplicação
-│   │   └── page.tsx           # Página inicial (tema escuro #122112)
+│   │   ├── layout.tsx         # Layout principal da aplicação (RootLayout)
+│   │   └── page.tsx           # Página inicial (dashboard/tab principal)
 │   │
-│   ├── components/            # Componentes React organizados
-│   │   ├── ui/               # Componentes de UI básicos (shadcn/ui)
-│   │   │   └── button.tsx    # Componente Button com class-variance-authority
-│   │   ├── forms/            # Formulários reutilizáveis
-│   │   ├── layout/           # Componentes de layout (header, sidebar, footer, etc.)
-│   │   ├── dashboard/        # Dashboards e widgets principais
-│   │   │   ├── PatrimonioDashboard.tsx      # Dashboard de patrimônio líquido
-│   │   │   ├── ContaCorrenteDashboard.tsx   # Dashboard de conta corrente
-│   │   │   ├── PoupancaDashboard.tsx        # Dashboard de poupança
-│   │   │   └── RecentTransactionsTable.tsx  # Tabela de transações recentes (usada em conta corrente)
-│   │   └── charts/           # Gráficos e visualizações de dados
+│   ├── components/            # Componentes React organizados por domínio/função
+│   │   ├── ui/                # Componentes de UI básicos e reutilizáveis (design system)
+│   │   │   ├── button.tsx         # Botão customizado (shadcn/ui)
+│   │   │   ├── icon.tsx           # Wrapper para Material Icons
+│   │   │   ├── avatar.tsx         # Avatar de usuário
+│   │   │   └── ...                # Outros componentes de UI (inputs, modals, etc.)
+│   │   ├── forms/             # Formulários reutilizáveis (ex: LoginForm, RegisterForm)
+│   │   ├── layout/            # Componentes de layout (Header, Footer, DashboardTabs, etc.)
+│   │   │   ├── Header.tsx         # Cabeçalho fixo com navegação e notificações
+│   │   │   ├── Footer.tsx         # Rodapé padronizado
+│   │   │   ├── DashboardTabs.tsx  # Tabs para navegação entre dashboards
+│   │   │   └── TitleDashboard.tsx # Título e subtítulo do dashboard
+│   │   ├── dashboard/         # Dashboards e widgets principais
+│   │   │   ├── PatrimonioDashboard.tsx      # Dashboard de patrimônio líquido (com gráfico)
+│   │   │   ├── ContaCorrenteDashboard.tsx   # Dashboard de conta corrente (com gráfico e tabela)
+│   │   │   ├── PoupancaDashboard.tsx        # Dashboard de poupança (com gráfico)
+│   │   │   └── RecentTransactionsTable.tsx  # Tabela de transações recentes
+│   │   ├── metas/               # Componentes relacionados a metas financeiras
+│   │   │   └── Metas.tsx        # Tela principal de metas (adicionar, listar, etc.)
+│   │   └── charts/              # Componentes de gráficos customizados (separados dos dashboards)
 │   │
-│   ├── hooks/                # Custom hooks React
-│   ├── lib/                  # Bibliotecas e configurações externas
-│   │   └── utils.ts          # Utilitários (cn function para className)
-│   ├── utils/                # Funções utilitárias e helpers
-│   ├── types/                # Definições TypeScript
-│   ├── styles/               # Estilos globais e CSS
+│   ├── hooks/                # Custom hooks React (ex: useAuth, useApi, useLocalStorage)
+│   ├── lib/                  # Bibliotecas utilitárias e integrações externas
+│   │   └── utils.ts          # Funções utilitárias (ex: cn para className)
+│   ├── utils/                # Helpers e funções utilitárias específicas do projeto
+│   ├── types/                # Definições TypeScript (interfaces, tipos, enums)
+│   ├── styles/               # Estilos globais e configurações CSS
 │   │   └── globals.css       # Estilos globais com Tailwind
 │   └── public/               # Arquivos estáticos (imagens, ícones, etc.)
 │
-├── package.json              # Dependências e scripts
-├── next.config.js           # Configuração do Next.js
-├── tailwind.config.js       # Configuração do Tailwind CSS
-├── postcss.config.js        # Configuração do PostCSS
-├── tsconfig.json            # Configuração do TypeScript
-└── Dockerfile               # Containerização do frontend
+├── package.json              # Dependências e scripts do projeto
+├── next.config.js            # Configuração do Next.js
+├── tailwind.config.js        # Configuração do Tailwind CSS
+├── postcss.config.js         # Configuração do PostCSS
+├── tsconfig.json             # Configuração do TypeScript
+└── Dockerfile                # Containerização do frontend
 ```
 
-### Propósito de Cada Pasta
+### Estrutura Detalhada do Frontend (`/web`)
 
-#### `/src/app/`
+```
+web/
+├── src/
+│   ├── app/                    # App Router (Next.js 14)
+│   │   ├── layout.tsx         # Layout principal da aplicação (RootLayout)
+│   │   └── page.tsx           # Página inicial (dashboard/tab principal)
+│   │
+│   ├── components/            # Componentes React organizados por domínio/função
+│   │   ├── ui/                # Componentes de UI básicos e reutilizáveis (design system)
+│   │   │   ├── button.tsx         # Botão customizado (shadcn/ui)
+│   │   │   ├── icon.tsx           # Wrapper para Material Icons
+│   │   │   ├── avatar.tsx         # Avatar de usuário
+│   │   │   └── ...                # Outros componentes de UI (inputs, modals, etc.)
+│   │   ├── forms/             # Formulários reutilizáveis (ex: LoginForm, RegisterForm)
+│   │   ├── layout/            # Componentes de layout (Header, Footer, DashboardTabs, etc.)
+│   │   │   ├── Header.tsx         # Cabeçalho fixo com navegação e notificações
+│   │   │   ├── Footer.tsx         # Rodapé padronizado
+│   │   │   ├── DashboardTabs.tsx  # Tabs para navegação entre dashboards
+│   │   │   └── TitleDashboard.tsx # Título e subtítulo do dashboard
+│   │   ├── dashboard/         # Dashboards e widgets principais
+│   │   │   ├── PatrimonioDashboard.tsx      # Dashboard de patrimônio líquido (com gráfico)
+│   │   │   ├── ContaCorrenteDashboard.tsx   # Dashboard de conta corrente (com gráfico e tabela)
+│   │   │   ├── PoupancaDashboard.tsx        # Dashboard de poupança (com gráfico)
+│   │   │   └── RecentTransactionsTable.tsx  # Tabela de transações recentes
+│   │   ├── metas/               # Componentes relacionados a metas financeiras
+│   │   │   └── Metas.tsx        # Tela principal de metas (adicionar, listar, etc.)
+│   │   └── charts/              # Componentes de gráficos customizados (separados dos dashboards)
+│   │
+│   ├── hooks/                # Custom hooks React (ex: useAuth, useApi, useLocalStorage)
+│   ├── lib/                  # Bibliotecas utilitárias e integrações externas
+│   │   └── utils.ts          # Funções utilitárias (ex: cn para className)
+│   ├── utils/                # Helpers e funções utilitárias específicas do projeto
+│   ├── types/                # Definições TypeScript (interfaces, tipos, enums)
+│   ├── styles/               # Estilos globais e configurações CSS
+│   │   └── globals.css       # Estilos globais com Tailwind
+│   └── public/               # Arquivos estáticos (imagens, ícones, etc.)
+│
+├── package.json              # Dependências e scripts do projeto
+├── next.config.js            # Configuração do Next.js
+├── tailwind.config.js        # Configuração do Tailwind CSS
+├── postcss.config.js         # Configuração do PostCSS
+├── tsconfig.json             # Configuração do TypeScript
+└── Dockerfile                # Containerização do frontend
+```
 
-- **App Router**: Nova arquitetura do Next.js 14
-- **layout.tsx**: Layout compartilhado entre todas as páginas
-- **page.tsx**: Página inicial da aplicação com tema escuro (#122112)
+---
 
-#### `/src/components/ui/`
+#### 📁 Detalhamento das Pastas
 
-- **shadcn/ui**: Componentes de UI baseados em Radix UI
-- **button.tsx**: Componente Button com class-variance-authority para variantes
-- **icon.tsx**: Componente Icon wrapper para Material Icons do Google Fonts
-- **icon-examples.tsx**: Exemplos de uso dos ícones Material Design
-- **Design System**: Componentes reutilizáveis com design consistente
+- **/app/**
 
-#### `/src/components/layout/`
+  - layout.tsx: Define o layout global (head, fontes, estilos globais).
+  - page.tsx: Página principal, controla o estado das tabs/dashboards/metas.
 
-- **Header.tsx**: Header principal com navegação e tema escuro
-- **Tema**: Fundo #122112 com bordas brancas e texto branco
-- **Navegação**: Links para Dashboard e Metas
-- **Responsivo**: Layout adaptável para diferentes tamanhos de tela
+- **/components/ui/**
 
-#### `/src/components/`
+  - Design System: Botões, ícones, avatares, inputs, modais, etc.
+  - Reutilizáveis: Usados em qualquer parte do projeto.
 
-- **ui/**: Componentes básicos reutilizáveis (Button, Input, Modal, etc.)
-- **forms/**: Formulários específicos (LoginForm, RegisterForm, etc.)
-- **layout/**: Componentes de estrutura (Header, Sidebar, Footer, etc.)
-- **charts/**: Componentes de visualização de dados (gráficos, dashboards)
+- **/components/layout/**
 
-#### `/src/hooks/`
+  - Header.tsx: Cabeçalho fixo, navegação, botão de notificações, integração com modal.
+  - Footer.tsx: Rodapé centralizado, links institucionais.
+  - DashboardTabs.tsx: Tabs para alternar entre dashboards.
+  - TitleDashboard.tsx: Título e subtítulo dinâmicos conforme a tab.
 
-- Custom hooks React para lógica reutilizável
-- Exemplo: `useAuth.ts`, `useApi.ts`, `useLocalStorage.ts`
+- **/components/dashboard/**
 
-#### `/src/lib/`
+  - PatrimonioDashboard.tsx: Card com valor, variação e gráfico de barras.
+  - ContaCorrenteDashboard.tsx: Card com valor, gráfico de barras e tabela de transações.
+  - PoupancaDashboard.tsx: Card com valor, variação e gráfico de barras.
+  - RecentTransactionsTable.tsx: Tabela de transações recentes, visual escuro.
 
-- Configurações de bibliotecas externas
-- Clientes de API, configurações de autenticação
+- **/components/metas/**
 
-#### `/src/utils/`
+  - Metas.tsx: Tela principal de metas, com botão para adicionar, lista de metas atuais e alcançadas.
 
-- Funções utilitárias e helpers
-- Formatação de dados, validações, constantes
+- **/components/charts/**
 
-#### `/src/types/`
+  - Gráficos customizados: Caso queira separar componentes de gráficos puros dos dashboards.
 
-- Definições TypeScript
-- Interfaces, tipos, enums
+- **/hooks/**
 
-#### `/src/styles/`
+  - useAuth.ts: Hook de autenticação.
+  - useApi.ts: Hook para requisições.
+  - useLocalStorage.ts: Hook para persistência local.
 
-- Estilos globais e configurações CSS
-- Integração com Tailwind CSS
+- **/lib/**
+
+  - utils.ts: Funções utilitárias globais (ex: cn para className).
+
+- **/utils/**
+
+  - Helpers: Funções utilitárias específicas do domínio do projeto.
+
+- **/types/**
+
+  - TypeScript: Interfaces, tipos, enums globais.
+
+- **/styles/**
+
+  - globals.css: Estilos globais, customizações do Tailwind.
+
+- **/public/**
+  - Imagens, ícones, favicons: Arquivos estáticos acessíveis publicamente.
+
+---
+
+### 🧩 Boas Práticas
+
+- **Componentização**: Separe componentes por domínio/função para facilitar manutenção e escalabilidade.
+- **Reutilização**: Use a pasta `ui/` para tudo que pode ser reaproveitado em várias telas.
+- **Expansão**: Se precisar de mais áreas (ex: relatórios, perfil), crie novas pastas em `components/`.
+- **Hooks**: Centralize lógica reutilizável em `hooks/`.
+- **Types**: Defina todos os tipos e interfaces em `types/` para tipagem forte e autocompletar.
 
 ---
 
