@@ -48,8 +48,12 @@ web/
 │   │   ├── ui/               # Componentes de UI básicos (shadcn/ui)
 │   │   │   └── button.tsx    # Componente Button com class-variance-authority
 │   │   ├── forms/            # Formulários reutilizáveis
-│   │   ├── layout/           # Componentes de layout (header, sidebar, etc.)
-│   │   │   └── Header.tsx    # Header principal com tema escuro
+│   │   ├── layout/           # Componentes de layout (header, sidebar, footer, etc.)
+│   │   ├── dashboard/        # Dashboards e widgets principais
+│   │   │   ├── PatrimonioDashboard.tsx      # Dashboard de patrimônio líquido
+│   │   │   ├── ContaCorrenteDashboard.tsx   # Dashboard de conta corrente
+│   │   │   ├── PoupancaDashboard.tsx        # Dashboard de poupança
+│   │   │   └── RecentTransactionsTable.tsx  # Tabela de transações recentes (usada em conta corrente)
 │   │   └── charts/           # Gráficos e visualizações de dados
 │   │
 │   ├── hooks/                # Custom hooks React
@@ -81,6 +85,8 @@ web/
 
 - **shadcn/ui**: Componentes de UI baseados em Radix UI
 - **button.tsx**: Componente Button com class-variance-authority para variantes
+- **icon.tsx**: Componente Icon wrapper para Material Icons do Google Fonts
+- **icon-examples.tsx**: Exemplos de uso dos ícones Material Design
 - **Design System**: Componentes reutilizáveis com design consistente
 
 #### `/src/components/layout/`
@@ -339,14 +345,18 @@ backend/
 - **Variantes**: default, destructive, outline, secondary, ghost, link
 - **Tamanhos**: default, sm, lg, icon
 - **Integração**: Radix UI Slot para composição
+- **Icon Component**: Wrapper para Material Icons do Google Fonts
+- **Variantes de Ícones**: filled, outlined, round
+- **Tamanhos de Ícones**: sm, md, lg, xl
 
 #### ✅ Header Component
 
 - **Localização**: `/components/layout/Header.tsx`
 - **Tema**: Escuro (#122112) com bordas brancas
-- **Navegação**: Dashboard e Metas
+- **Navegação**: Dashboard e Metas com ícones
 - **Responsivo**: Layout adaptável
-- **Integração**: Usa Button component do shadcn/ui
+- **Integração**: Usa Button e Icon components do shadcn/ui
+- **Ícones**: account_balance, dashboard, flag, login
 
 #### ✅ Página Principal
 
