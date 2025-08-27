@@ -20,7 +20,7 @@ const ContaCorrenteDashboard = () => (
           Últimos 30 dias <span className="text-green-400 font-semibold">+2.5%</span>
         </div>
       </div>
-      <div className="w-full h-40 mt-2">
+      <div className=" h-40 mt-2">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
             <XAxis dataKey="name" axisLine={false} tickLine={false} stroke="#9EBF9E" fontSize={14} dy={10} />
