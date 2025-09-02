@@ -11,6 +11,8 @@ namespace NestFin.API.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<PersonalInfo> PersonalInfos { get; set; }
+        public DbSet<Goal> Goals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +26,18 @@ namespace NestFin.API.Data
                 entity.HasIndex(e => e.Email).IsUnique();
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<PersonalInfo>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired();
+            });
+
+            modelBuilder.Entity<Goal>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired();
             });
         }
     }
