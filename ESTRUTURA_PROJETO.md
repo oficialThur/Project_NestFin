@@ -204,31 +204,46 @@ web/
 
 ## ⚙️ Backend (ASP.NET Core) - `/backend`
 
-### Estrutura de Pastas
+### Estrutura de Pastas Atualizada
 
 ```
 backend/
-├── Controllers/              # Controllers da API REST
-│   └── UsersController.cs   # Exemplo de controller CRUD
+├── Controllers/                # Controllers da API REST
+│   ├── AuthController.cs      # Autenticação e registro
+│   ├── PersonalController.cs  # Gestão de informações pessoais
+│   └── UsersController.cs     # CRUD de usuários com padrão repository
 │
-├── Models/                   # Modelos do Entity Framework
-│   └── User.cs              # Modelo de usuário
+├── Models/                    # Modelos do Entity Framework
+│   ├── Goal.cs               # Modelo de metas financeiras
+│   ├── PersonalInfo.cs       # Modelo de informações pessoais
+│   └── User.cs               # Modelo de usuário
 │
-├── Data/                     # Camada de acesso a dados
-│   └── ApplicationDbContext.cs  # Contexto do Entity Framework
+├── Data/                      # Camada de acesso a dados
+│   └── ApplicationDbContext.cs # Contexto do Entity Framework com configurações
 │
-├── Services/                 # Lógica de negócio
-├── DTOs/                     # Data Transfer Objects
+├── Services/                  # Lógica de negócio
+│   ├── Interfaces/           # Interfaces dos serviços
+│   │   └── IUserService.cs   # Interface do serviço de usuários
+│   └── UserService.cs        # Implementação do serviço de usuários
+│
 ├── Repositories/             # Padrão Repository
+│   ├── Interfaces/          # Interfaces dos repositories
+│   │   ├── IBaseRepository.cs  # Interface base genérica
+│   │   └── IUserRepository.cs  # Interface do repository de usuários
+│   ├── BaseRepository.cs     # Implementação base genérica
+│   └── UserRepository.cs     # Implementação do repository de usuários
+│
 ├── Middleware/               # Middlewares customizados
 ├── Extensions/               # Extensões de métodos
 ├── Configurations/           # Configurações da aplicação
 ├── Migrations/               # Migrações do Entity Framework
+│   ├── 20250827054417_InitialCreate.cs
+│   └── 20250827083425_AddPersonalAndGoals.cs
 │
-├── Program.cs                # Ponto de entrada da aplicação
-├── appsettings.json          # Configurações (connection strings, etc.)
-├── NestFin.API.csproj        # Arquivo de projeto .NET
-└── Dockerfile                # Containerização do backend
+├── Program.cs               # Configuração da aplicação, DI e JWT
+├── appsettings.json        # Configurações (connection strings, etc.)
+├── NestFin.API.csproj      # Arquivo de projeto .NET
+└── Dockerfile              # Containerização do backend
 ```
 
 ### Propósito de Cada Pasta
@@ -397,13 +412,16 @@ backend/
 
 ## 📝 Próximos Passos
 
-1. **Implementar autenticação JWT**
-2. **Criar mais modelos de dados**
-3. **Implementar validações**
-4. **Adicionar testes unitários**
-5. **Configurar CI/CD**
-6. **Implementar logging**
-7. **Adicionar monitoramento**
+1. ✅ **Implementar autenticação JWT** - Concluído
+2. ✅ **Criar mais modelos de dados** - Concluído (User, PersonalInfo, Goal)
+3. ✅ **Implementar validações básicas** - Concluído
+4. ✅ **Implementar padrão Repository** - Concluído
+5. ✅ **Implementar camada de Serviço** - Concluído
+6. **Adicionar testes unitários**
+7. **Configurar CI/CD**
+8. **Implementar logging**
+9. **Adicionar monitoramento**
+10. **Melhorar tratamento de erros**
 
 ---
 
