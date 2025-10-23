@@ -1,16 +1,6 @@
 "use client"
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { authService } from '@/lib/auth';
-import { Button } from '@/components/ui/button';
-import Icon from '@/components/ui/icon';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import NotificationModal from './NotificationModal';
-
-const notifications = [
-  { id: 1, title: 'Nova meta criada', description: 'Sua meta "Viagem" foi criada com sucesso.', date: 'Hoje, 10:30' },
-  { id: 2, title: 'Depósito recebido', description: 'Você recebeu R$500,00 na conta corrente.', date: 'Ontem, 16:12' },
-  { id: 3, title: 'Alerta de saldo', description: 'Seu saldo está abaixo de R$100,00.', date: '27/07/2024' },
-];
 
 interface HeaderProps {
   onSelectDashboard: () => void;
@@ -20,10 +10,9 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onSelectDashboard, onSelectPersonal, onSelectMetas, onSelectApi }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const notifBtnRef = useRef<HTMLButtonElement>(null);
   const [mounted, setMounted] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -38,68 +27,112 @@ const Header: React.FC<HeaderProps> = ({ onSelectDashboard, onSelectPersonal, on
     }
   }, []);
 
+  const handleNavClick = (callback: () => void) => {
+    callback();
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="bg-[#122112] border-b-[3px] border-white w-full relative">
+    <header className="bg-[#122112] border-b-[1px] border-white w-full relative">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex flex-col items-start space-y-1">
-            <h1 className="text-xl font-semibold text-white">NestFin</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-lg sm:text-xl font-semibold text-white">NestFin</h1>
+            {/* Chip com nome do usuário (mobile e desktop) */}
+            {mounted && userName && (
+              <div className="px-2 sm:px-3 py-1 rounded-full border border-green-600 bg-[#122112] text-green-400 text-[10px] sm:text-xs font-medium whitespace-nowrap">
+                {userName}
+              </div>
+            )}
           </div>
-          <nav className="flex justify-end items-center space-x-8 relative">
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex justify-end items-center space-x-4 xl:space-x-6">
             <button
               onClick={onSelectDashboard}
-              className="group flex items-center space-x-1 text-white hover:text-[#E5E8EB] px-3 py-2 rounded-md text-sm font-medium bg-transparent border-none outline-none transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              <span className="group-hover:underline">Dashboard</span>
+              Dashboard
             </button>
             <button
               onClick={onSelectPersonal}
-              className="group flex items-center space-x-1 text-white hover:text-[#E5E8EB] px-3 py-2 rounded-md text-sm font-medium bg-transparent border-none outline-none transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              <span className="group-hover:underline">Informações Pessoais</span>
+              Informações
             </button>
             <button
               onClick={onSelectMetas}
-              className="group flex items-center space-x-1 text-white hover:text-[#E5E8EB] px-3 py-2 rounded-md text-sm font-medium bg-transparent border-none outline-none transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              <span className="group-hover:underline">Metas</span>
+              Metas
             </button>
             <button
               onClick={onSelectApi}
-              className="group flex items-center space-x-1 text-white hover:text-[#E5E8EB] px-3 py-2 rounded-md text-sm font-medium bg-transparent border-none outline-none transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              <span className="group-hover:underline">Cadastrar</span>
+              Cadastrar
             </button>
-            {/* Botão de sair (cliente) */}
             {mounted && userName && (
               <button
                 onClick={() => { authService.logout(); setUserName(null); window.location.reload(); }}
-                className="group flex items-center space-x-1 text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium bg-transparent border-none outline-none transition-colors duration-200"
+                className="text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
-                <span className="group-hover:underline">Sair</span>
+                Sair
               </button>
             )}
-            <div className="relative flex items-center space-x-4">
-              <Button
-                ref={notifBtnRef}
-                className="bg-[#264526] text-white hover:bg-[#264526]/90 flex items-center space-x-1 w-10 h-10"
-                onClick={() => setModalOpen((v) => !v)}
-                aria-label="Abrir notificações"
-              >
-                <Icon name="notifications" size="sm" />
-              </Button>
-              <NotificationModal open={modalOpen} onClose={() => setModalOpen(false)} notifications={notifications} anchorRef={notifBtnRef} />
-            </div>
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-white p-2 rounded-md hover:bg-[#2B402B] transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
-        {/* Chip com nome do usuário (cliente) */}
-        {mounted && userName && (
-          <div className="absolute left-[160px] top-1/2 -translate-y-1/2 px-3 py-1 rounded-full border border-green-600 bg-[#122112] text-green-400 text-xs sm:text-sm font-medium">
-            Usuário: {userName}
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden py-4 space-y-2 border-t border-[#2B402B] mt-2">
+            <button
+              onClick={() => handleNavClick(onSelectDashboard)}
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={() => handleNavClick(onSelectPersonal)}
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+            >
+              Informações Pessoais
+            </button>
+            <button
+              onClick={() => handleNavClick(onSelectMetas)}
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+            >
+              Metas
+            </button>
+            <button
+              onClick={() => handleNavClick(onSelectApi)}
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+            >
+              Cadastrar
+            </button>
+            {mounted && userName && (
+              <button
+                onClick={() => { authService.logout(); setUserName(null); window.location.reload(); }}
+                className="w-full text-left text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+              >
+                Sair
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -107,4 +140,4 @@ const Header: React.FC<HeaderProps> = ({ onSelectDashboard, onSelectPersonal, on
   );
 };
 
-export default Header; 
+export default Header;

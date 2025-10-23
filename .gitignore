@@ -8,6 +8,8 @@ node_modules/
 
 # Next.js
 /.next/
+# Ignore .next inside the web/ subfolder
+/web/.next/
 /out/
 
 # Production

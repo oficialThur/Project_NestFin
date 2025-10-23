@@ -1,10 +1,5 @@
 import React from 'react';
-
-const TABS = [
-  { label: 'Patrimônio líquido', value: 'patrimonio' },
-  { label: 'Conta corrente', value: 'conta' },
-  { label: 'Poupança', value: 'poupanca' },
-];
+import { DASHBOARD_TABS } from '@/constants/dashboard';
 
 interface DashboardTabsProps {
   selected: string;
@@ -13,13 +8,13 @@ interface DashboardTabsProps {
 
 const DashboardTabs: React.FC<DashboardTabsProps> = ({ selected, onSelect }) => {
   return (
-    <div className="w-[960px] ">
-      <div className="flex bg-[#264526] rounded-lg p-1 gap-2">
-        {TABS.map(tab => (
+    <div className="w-full max-w-[960px] px-4 sm:px-0">
+      <div className="flex flex-col sm:flex-row bg-[#264526] rounded-lg p-1 gap-1 sm:gap-2">
+        {DASHBOARD_TABS.map(tab => (
           <button
             key={tab.value}
             onClick={() => onSelect(tab.value)}
-            className={`flex-1 py-2 transition-colors rounded-md text-center font-medium
+            className={`flex-1 py-2 sm:py-2.5 transition-colors rounded-md text-center font-medium text-xs sm:text-sm
               ${selected === tab.value
                 ? 'bg-[#1a2d1a] text-white shadow-inner'
                 : 'bg-transparent text-[#E5E8EB] hover:bg-[#1a2d1a]/60'}
@@ -33,4 +28,4 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({ selected, onSelect }) => 
   );
 };
 
-export default DashboardTabs; 
+export default DashboardTabs;
