@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: suasenha
-      MYSQL_DATABASE: nestfin_db
+      MYSQL_DATABASE: nestfin
       MYSQL_USER: nestfin_user
       MYSQL_PASSWORD: nestfin_pass
     ports:

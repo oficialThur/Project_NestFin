@@ -31,6 +31,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<FinancialCalculationService>();
 
 // CORS (libera geral para dev)
 builder.Services.AddCors(options =>

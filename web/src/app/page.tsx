@@ -1,11 +1,16 @@
 'use client'
 import React, { useState } from 'react';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/layout/Header';
 import DashboardTabs from '@/components/layout/DashboardTabs';
 import TitleDashboard from '@/components/layout/TitleDashboard';
 import PatrimonioDashboard from '@/components/dashboard/PatrimonioDashboard';
 import ContaCorrenteDashboard from '@/components/dashboard/ContaCorrenteDashboard';
 import PoupancaDashboard from '@/components/dashboard/PoupancaDashboard';
+import RealTimeDashboard from '@/components/dashboard/RealTimeDashboard';
+import PersonalDashboard from '@/components/dashboard/PersonalDashboard';
+import UserDashboard from '@/components/dashboard/UserDashboard';
+import AddTransactionModal from '@/components/dashboard/AddTransactionModal';
 import Metas from '@/components/metas/Metas';
 import Footer from '@/components/layout/Footer';
 import AuthForms from '@/components/auth/AuthForms';
@@ -17,16 +22,18 @@ type DashboardTabsProps = {
   onSelect: (value: "patrimonio" | "conta" | "poupanca") => void;
 }
 
-const Page = () => {
+const PageContent = () => {
+  const { isAuthenticated, isLoading } = useAuth();
   const [mainView, setMainView] = useState<'dashboard' | 'personal' | 'metas' | 'api'>('dashboard');
   const [selectedTab, setSelectedTab] = useState<DashboardTab>('patrimonio');
+  const [showAddTransaction, setShowAddTransaction] = useState(false);
 
   const dashboardConfig = DASHBOARD_CONFIG[selectedTab];
 
   const renderDashboard = () => {
     switch (selectedTab) {
       case 'patrimonio':
-        return <PatrimonioDashboard />;
+        return <UserDashboard />;
       case 'conta':
         return <ContaCorrenteDashboard />;
       case 'poupanca':
@@ -35,6 +42,29 @@ const Page = () => {
         return null;
     }
   };
+
+  // Se estiver carregando, mostrar loading
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#122112]">
+        <div className="text-white text-xl">Carregando...</div>
+      </div>
+    );
+  }
+
+  // Se não estiver logado, mostrar formulário de login
+  if (!isAuthenticated) {
+    return (
+      <main className="bg-[#122112] w-full min-h-screen flex flex-col items-center gap-4 text-white font-semibold text-sm sm:text-base lg:text-lg">
+        <div className="w-full flex-1 flex items-center justify-center py-10">
+          <div className="w-full max-w-[720px] px-4">
+            <AuthForms onSuccessLogin={() => setMainView('dashboard')} />
+          </div>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
 
   return (
     <>
@@ -64,6 +94,16 @@ const Page = () => {
             <div className="w-full flex justify-center px-4">
               {renderDashboard()}
             </div>
+            
+            {/* Modal para adicionar transação */}
+            <AddTransactionModal
+              isOpen={showAddTransaction}
+              onClose={() => setShowAddTransaction(false)}
+              onSuccess={() => {
+                // Recarregar dados do dashboard
+                console.log('Transação adicionada com sucesso!');
+              }}
+            />
           </>
         ) : mainView === 'personal' ? (
           <PersonalInfoView />
@@ -79,6 +119,14 @@ const Page = () => {
       </main>
       <Footer />
     </>
+  );
+};
+
+const Page = () => {
+  return (
+    <AuthProvider>
+      <PageContent />
+    </AuthProvider>
   );
 };
 

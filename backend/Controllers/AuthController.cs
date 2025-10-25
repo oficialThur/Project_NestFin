@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NestFin.API.Data;
 using NestFin.API.Models;
+using NestFin.API.Services;
 
 namespace NestFin.API.Controllers
 {
@@ -33,11 +34,20 @@ namespace NestFin.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AuthResponse>> Register(RegisterRequest request)
         {
-            // Validação básica
-            if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
-            {
-                return BadRequest("Dados inválidos");
-            }
+            // Validação do nome
+            var nameValidation = ValidationService.ValidateName(request.Name);
+            if (!nameValidation.IsValid)
+                return BadRequest(nameValidation.ErrorMessage);
+
+            // Validação do email
+            var emailValidation = ValidationService.ValidateEmail(request.Email);
+            if (!emailValidation.IsValid)
+                return BadRequest(emailValidation.ErrorMessage);
+
+            // Validação da senha
+            var passwordValidation = ValidationService.ValidatePassword(request.Password);
+            if (!passwordValidation.IsValid)
+                return BadRequest(passwordValidation.ErrorMessage);
 
             // Impede e-mail duplicado
             var exists = await _context.Users.AnyAsync(u => u.Email == request.Email);
@@ -46,8 +56,8 @@ namespace NestFin.API.Controllers
             // Cria usuário com senha em hash
             var user = new User
             {
-                Name = request.Name,
-                Email = request.Email,
+                Name = request.Name.Trim(),
+                Email = request.Email.ToLower().Trim(),
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
