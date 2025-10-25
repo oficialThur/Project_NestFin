@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import DashboardCard from './DashboardCard';
 
 const PoupancaDashboard = () => {
-  const { personalInfo } = useAuth();
+  const { personalInfo, monthlySavings, extraExpenses } = useAuth();
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -13,7 +13,14 @@ const PoupancaDashboard = () => {
     }).format(value);
   };
 
-  // Calcular economia mensal (receita - gastos fixos - gastos variáveis)
+  // Calcular total economizado (economia - gastos extras)
+  const getTotalSavings = () => {
+    const totalSavings = monthlySavings.reduce((total, savings) => total + savings.amount, 0);
+    const totalExtraExpenses = extraExpenses.reduce((total, expense) => total + expense.amount, 0);
+    return Math.max(0, totalSavings - totalExtraExpenses);
+  };
+
+  // Calcular economia mensal projetada (receita - gastos fixos - gastos variáveis)
   const calculateMonthlySavings = () => {
     if (!personalInfo) return 0;
     const income = personalInfo.monthlyIncome || 0;
@@ -22,26 +29,25 @@ const PoupancaDashboard = () => {
     return Math.max(0, income - fixedExpenses - variableExpenses);
   };
 
-  const monthlySavings = calculateMonthlySavings();
+  const totalSavings = getTotalSavings();
+  const projectedMonthlySavings = calculateMonthlySavings();
 
   return (
     <div className="flex flex-col items-center gap-0 w-full">
       <div className="w-full max-w-[960px] px-4 sm:px-0 mb-6">
         <div className="bg-[#2B402B] rounded-lg flex flex-col justify-start p-4 sm:p-6">
           <p className="text-white text-sm sm:text-base">
-            Economia Mensal
+            Total Economizado
           </p>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
-            {formatCurrency(monthlySavings)}
+            {formatCurrency(totalSavings)}
           </h2>
-          {monthlySavings === 0 && (
-            <p className="text-gray-400 text-sm mt-2">
-              Preencha suas informações financeiras para ver quanto você economiza por mês
-            </p>
-          )}
+          <p className="text-gray-400 text-sm mt-2">
+            Valor acumulado dos meses economizados
+          </p>
         </div>
       </div>
-      <DashboardCard type="poupanca" value={formatCurrency(monthlySavings)} />
+      <DashboardCard type="poupanca" value={formatCurrency(totalSavings)} />
     </div>
   );
 };

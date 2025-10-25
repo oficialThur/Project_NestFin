@@ -59,7 +59,7 @@ const UserTest = () => {
       <h2 className="text-2xl font-bold text-white mb-6">Teste da API - Usuários</h2>
       
       {/* Formulário para criar usuário */}
-      <div className="mb-6 p-4 bg-[#1A2A1A] rounded-lg">
+      <div className="mb-6 p-4 bg-[#2A4A2A] rounded-lg">
         <h3 className="text-lg font-semibold text-white mb-4">Criar Novo Usuário</h3>
         <div className="space-y-3">
           <input
@@ -67,21 +67,21 @@ const UserTest = () => {
             placeholder="Nome"
             value={newUser.name}
             onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-            className="w-full p-2 rounded bg-[#122112] text-white border border-[#4A5D4A]"
+            className="w-full p-2 rounded bg-[#122112] text-white border border-[#6B8A6B]"
           />
           <input
             type="email"
             placeholder="Email"
             value={newUser.email}
             onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-            className="w-full p-2 rounded bg-[#122112] text-white border border-[#4A5D4A]"
+            className="w-full p-2 rounded bg-[#122112] text-white border border-[#6B8A6B]"
           />
           <input
             type="password"
             placeholder="Senha"
             value={newUser.passwordHash}
             onChange={(e) => setNewUser({ ...newUser, passwordHash: e.target.value })}
-            className="w-full p-2 rounded bg-[#122112] text-white border border-[#4A5D4A]"
+            className="w-full p-2 rounded bg-[#122112] text-white border border-[#6B8A6B]"
           />
           <button
             onClick={createUser}
@@ -114,7 +114,7 @@ const UserTest = () => {
 
         <div className="space-y-2">
           {users.map((user) => (
-            <div key={user.id} className="p-3 bg-[#1A2A1A] rounded border border-[#4A5D4A]">
+            <div key={user.id} className="p-3 bg-[#2A4A2A] rounded border border-[#6B8A6B]">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-white font-semibold">{user.name}</p>

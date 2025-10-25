@@ -8,7 +8,7 @@ const Footer = () => (
       <a href="#" className="text-[#9EBF9E] text-sm hover:underline">Contate-nos</a>
     </div>
     <div className="text-[#9EBF9E] text-xs text-center mt-2">
-      ©2024 NestFin. Direitos reservados.
+      ©2025 NestFin. Direitos reservados.
     </div>
   </footer>
 );

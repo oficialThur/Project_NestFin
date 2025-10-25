@@ -84,3 +84,4 @@ Write-Host "   Faça login ou cadastre-se para ver o dashboard personalizado!" -
 Write-Host ""
 Read-Host "Pressione Enter para sair"
 
+

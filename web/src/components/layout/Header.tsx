@@ -33,11 +33,13 @@ const Header: React.FC<HeaderProps> = ({ onSelectDashboard, onSelectPersonal, on
   };
 
   return (
-    <header className="bg-[#122112] border-b-[1px] border-white w-full relative">
+    <header className="bg-gradient-to-r from-[#1A3A1A] to-[#2A4A2A] border-b border-[#6B8A6B] w-full relative shadow-lg backdrop-blur-sm">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 animate-fadeInUp">
           <div className="flex items-center gap-3">
-            <h1 className="text-lg sm:text-xl font-semibold text-white">NestFin</h1>
+            <h1 className="text-lg sm:text-xl font-bold text-white bg-gradient-to-r from-white to-[#B8D4B8] bg-clip-text text-transparent hover-glow">
+              💰 NestFin
+            </h1>
             {/* Chip com nome do usuário (mobile e desktop) */}
             {mounted && userName && (
               <div className="px-2 sm:px-3 py-1 rounded-full border border-green-600 bg-[#122112] text-green-400 text-[10px] sm:text-xs font-medium whitespace-nowrap">
@@ -50,34 +52,34 @@ const Header: React.FC<HeaderProps> = ({ onSelectDashboard, onSelectPersonal, on
           <nav className="hidden lg:flex justify-end items-center space-x-4 xl:space-x-6">
             <button
               onClick={onSelectDashboard}
-              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover-lift hover-glow"
             >
-              Dashboard
+              📊 Dashboard
             </button>
             <button
               onClick={onSelectPersonal}
-              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover-lift hover-glow"
             >
-              Informações
+              👤 Informações
             </button>
             <button
               onClick={onSelectMetas}
-              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover-lift hover-glow"
             >
-              Metas
+              🎯 Metas
             </button>
             <button
               onClick={onSelectApi}
-              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              className="text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover-lift hover-glow"
             >
-              Cadastrar
+              ✨ Cadastrar
             </button>
             {mounted && userName && (
               <button
                 onClick={() => { authService.logout(); setUserName(null); window.location.reload(); }}
-                className="text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover-lift hover-glow"
               >
-                Sair
+                🚪 Sair
               </button>
             )}
           </nav>
@@ -100,37 +102,37 @@ const Header: React.FC<HeaderProps> = ({ onSelectDashboard, onSelectPersonal, on
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 space-y-2 border-t border-[#2B402B] mt-2">
+          <div className="lg:hidden py-4 space-y-2 border-t border-[#6B8A6B] mt-2 animate-slideInRight">
             <button
               onClick={() => handleNavClick(onSelectDashboard)}
-              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#3A5A3A] transition-all duration-300 hover-lift"
             >
-              Dashboard
+              📊 Dashboard
             </button>
             <button
               onClick={() => handleNavClick(onSelectPersonal)}
-              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#3A5A3A] transition-all duration-300 hover-lift"
             >
-              Informações Pessoais
+              👤 Informações Pessoais
             </button>
             <button
               onClick={() => handleNavClick(onSelectMetas)}
-              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#3A5A3A] transition-all duration-300 hover-lift"
             >
-              Metas
+              🎯 Metas
             </button>
             <button
               onClick={() => handleNavClick(onSelectApi)}
-              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+              className="w-full text-left text-white hover:text-[#c6ffe9] px-3 py-2 rounded-md text-sm font-medium hover:bg-[#3A5A3A] transition-all duration-300 hover-lift"
             >
-              Cadastrar
+              ✨ Cadastrar
             </button>
             {mounted && userName && (
               <button
                 onClick={() => { authService.logout(); setUserName(null); window.location.reload(); }}
-                className="w-full text-left text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium hover:bg-[#2B402B] transition-colors"
+                className="w-full text-left text-red-300 hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium hover:bg-[#3A5A3A] transition-all duration-300 hover-lift"
               >
-                Sair
+                🚪 Sair
               </button>
             )}
           </div>

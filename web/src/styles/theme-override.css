@@ -1,6 +1,6 @@
 /* CSS adicional para garantir tema verde */
 body, html, #__next {
-  background-color: #122112 !important;
+  background-color: #1A3A1A !important;
   color: white !important;
 }
 
@@ -11,7 +11,7 @@ body, html, #__next {
 
 /* Forçar background verde em elementos específicos */
 div, section, main, article, aside, nav, header, footer {
-  background-color: #122112 !important;
+  background-color: #1A3A1A !important;
 }
 
 /* Exceções para elementos que devem ter cores específicas */
@@ -24,4 +24,5 @@ div, section, main, article, aside, nav, header, footer {
 .bg-yellow-600 {
   background-color: inherit !important;
 }
+
 

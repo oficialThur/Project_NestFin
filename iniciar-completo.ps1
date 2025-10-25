@@ -160,3 +160,4 @@ Write-Host "🎉 Projeto NestFin está rodando!" -ForegroundColor Green
 Write-Host ""
 Read-Host "Pressione Enter para sair"
 
+

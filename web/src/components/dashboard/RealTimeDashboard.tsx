@@ -53,7 +53,7 @@ const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ onAddTransaction 
         savingsRate: 27.06,
         averageDailySpending: 206.67,
         projectedMonthlyExpenses: 6200.00,
-        netWorth: 15600.00
+        netWorth: 2300.00
       };
 
       const mockCategories: CategoryData[] = [
@@ -66,9 +66,9 @@ const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ onAddTransaction 
       ];
 
       const mockTrends: MonthlyTrend[] = [
-        { month: 'Jan/2024', income: 8000, expenses: 5800, netIncome: 2200, savingsRate: 27.5 },
-        { month: 'Fev/2024', income: 8200, expenses: 6100, netIncome: 2100, savingsRate: 25.6 },
-        { month: 'Mar/2024', income: 8500, expenses: 6200, netIncome: 2300, savingsRate: 27.1 }
+        { month: 'Jan/2025', income: 8000, expenses: 5800, netIncome: 2200, savingsRate: 27.5 },
+        { month: 'Fev/2025', income: 8200, expenses: 6100, netIncome: 2100, savingsRate: 25.6 },
+        { month: 'Mar/2025', income: 8500, expenses: 6200, netIncome: 2300, savingsRate: 27.1 }
       ];
 
       setFinancialData(mockData);
@@ -116,25 +116,25 @@ const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ onAddTransaction 
     <div className="space-y-6">
       {/* Cards Principais */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-green-400 text-sm font-medium mb-2">Receitas Totais</h3>
           <p className="text-2xl font-bold text-white">{formatCurrency(financialData.totalIncome)}</p>
           <p className="text-xs text-gray-400 mt-1">Últimos 6 meses</p>
         </div>
 
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-red-400 text-sm font-medium mb-2">Gastos Totais</h3>
           <p className="text-2xl font-bold text-white">{formatCurrency(financialData.totalExpenses)}</p>
           <p className="text-xs text-gray-400 mt-1">Últimos 6 meses</p>
         </div>
 
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-blue-400 text-sm font-medium mb-2">Patrimônio Líquido</h3>
           <p className="text-2xl font-bold text-white">{formatCurrency(financialData.netWorth)}</p>
           <p className="text-xs text-gray-400 mt-1">Saldo atual</p>
         </div>
 
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-yellow-400 text-sm font-medium mb-2">Taxa de Poupança</h3>
           <p className="text-2xl font-bold text-white">{formatPercentage(financialData.savingsRate)}</p>
           <p className="text-xs text-gray-400 mt-1">Meta: 20%</p>
@@ -143,7 +143,7 @@ const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ onAddTransaction 
 
       {/* Análise de Gastos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-white text-lg font-semibold mb-4">Gastos por Categoria</h3>
           <div className="space-y-3">
             {categories.map((category, index) => (
@@ -169,7 +169,7 @@ const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ onAddTransaction 
           </div>
         </div>
 
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-white text-lg font-semibold mb-4">Tendências Mensais</h3>
           <div className="space-y-4">
             {monthlyTrends.map((trend, index) => (
@@ -200,19 +200,19 @@ const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ onAddTransaction 
 
       {/* Métricas Adicionais */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-white text-lg font-semibold mb-2">Gasto Médio Diário</h3>
           <p className="text-2xl font-bold text-red-400">{formatCurrency(financialData.averageDailySpending)}</p>
           <p className="text-xs text-gray-400 mt-1">Baseado nos últimos 30 dias</p>
         </div>
 
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-white text-lg font-semibold mb-2">Projeção Mensal</h3>
           <p className="text-2xl font-bold text-orange-400">{formatCurrency(financialData.projectedMonthlyExpenses)}</p>
           <p className="text-xs text-gray-400 mt-1">Baseado no histórico</p>
         </div>
 
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h3 className="text-white text-lg font-semibold mb-2">Saldo Líquido</h3>
           <p className="text-2xl font-bold text-blue-400">{formatCurrency(financialData.netIncome)}</p>
           <p className="text-xs text-gray-400 mt-1">Receitas - Gastos</p>

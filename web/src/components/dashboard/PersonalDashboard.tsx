@@ -54,12 +54,12 @@ const PersonalDashboard: React.FC = () => {
 
       // Simular dados de economia mensal dos últimos 6 meses
       const mockMonthlySavings: MonthlySavings[] = [
-        { month: "Jul/2024", savings: 1200, goalProgress: 2.4 },
-        { month: "Ago/2024", savings: 1500, goalProgress: 3.0 },
-        { month: "Set/2024", savings: 1100, goalProgress: 2.2 },
-        { month: "Out/2024", savings: 1800, goalProgress: 3.6 },
-        { month: "Nov/2024", savings: 1600, goalProgress: 3.2 },
-        { month: "Dez/2024", savings: 2000, goalProgress: 4.0 }
+        { month: "Jul/2025", savings: 1200, goalProgress: 2.4 },
+        { month: "Ago/2025", savings: 1500, goalProgress: 3.0 },
+        { month: "Set/2025", savings: 1100, goalProgress: 2.2 },
+        { month: "Out/2025", savings: 1800, goalProgress: 3.6 },
+        { month: "Nov/2025", savings: 1600, goalProgress: 3.2 },
+        { month: "Dez/2025", savings: 2000, goalProgress: 4.0 }
       ];
 
       setPersonalInfo(mockPersonalInfo);
@@ -118,7 +118,7 @@ const PersonalDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Informações Pessoais */}
-      <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+      <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
         <h2 className="text-2xl font-bold text-white mb-4">👤 Suas Informações</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -168,7 +168,7 @@ const PersonalDashboard: React.FC = () => {
 
       {/* Meta Financeira */}
       {goal.name && (
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
           <h2 className="text-2xl font-bold text-white mb-4">🎯 Sua Meta</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
@@ -209,7 +209,7 @@ const PersonalDashboard: React.FC = () => {
       )}
 
       {/* Gráfico de Economia Mensal */}
-      <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
+      <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B]">
         <h2 className="text-2xl font-bold text-white mb-4">📊 Sua Economia Mensal</h2>
         
         {/* Resumo */}
@@ -280,4 +280,5 @@ const PersonalDashboard: React.FC = () => {
 };
 
 export default PersonalDashboard;
+
 

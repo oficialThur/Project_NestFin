@@ -85,3 +85,4 @@ Write-Host "   Depois acesse http://localhost:3000" -ForegroundColor Yellow
 Write-Host ""
 Read-Host "Pressione Enter para sair"
 
+

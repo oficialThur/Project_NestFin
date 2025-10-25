@@ -36,7 +36,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({ open, onClose, no
   return (
     <div
       ref={dropdownRef}
-      className="absolute right-0 mt-2 z-50 w-80 bg-[#1a2d1a] rounded-xl shadow-lg p-4 border border-[#264526]"
+      className="absolute right-0 mt-2 z-50 w-80 bg-[#2A4A2A] rounded-xl shadow-lg p-4 border border-[#4A7C4A]"
       style={{ minWidth: 320 }}
     >
       <div className="flex justify-between items-center mb-2">

@@ -1,6 +1,8 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import ExtraExpenseModal from './ExtraExpenseModal';
+import AddTransactionModal from './AddTransactionModal';
 
 interface MonthlySavings {
   month: string;
@@ -9,16 +11,18 @@ interface MonthlySavings {
 }
 
 const UserDashboard: React.FC = () => {
-  const { user, personalInfo, goal, isAuthenticated } = useAuth();
+  const { user, personalInfo, goal, isAuthenticated, monthlySavings, extraExpenses } = useAuth();
+  const [showExtraExpenseModal, setShowExtraExpenseModal] = useState(false);
+  const [showAddTransactionModal, setShowAddTransactionModal] = useState(false);
 
   // Dados de economia mensal baseados nas informações do usuário
-  const monthlySavings: MonthlySavings[] = personalInfo?.monthlyIncome ? [
-    { month: "Jul/2024", savings: 0, goalProgress: 0 },
-    { month: "Ago/2024", savings: 0, goalProgress: 0 },
-    { month: "Set/2024", savings: 0, goalProgress: 0 },
-    { month: "Out/2024", savings: 0, goalProgress: 0 },
-    { month: "Nov/2024", savings: 0, goalProgress: 0 },
-    { month: "Dez/2024", savings: 0, goalProgress: 0 }
+  const mockMonthlySavings: MonthlySavings[] = personalInfo?.monthlyIncome ? [
+    { month: "Jul/2025", savings: 0, goalProgress: 0 },
+    { month: "Ago/2025", savings: 0, goalProgress: 0 },
+    { month: "Set/2025", savings: 0, goalProgress: 0 },
+    { month: "Out/2025", savings: 0, goalProgress: 0 },
+    { month: "Nov/2025", savings: 0, goalProgress: 0 },
+    { month: "Dez/2025", savings: 0, goalProgress: 0 }
   ] : [];
 
   const formatCurrency = (value: number) => {
@@ -32,13 +36,16 @@ const UserDashboard: React.FC = () => {
     return `${value.toFixed(1)}%`;
   };
 
+  // Calcular total economizado (economia - gastos extras)
   const calculateTotalSavings = () => {
-    return monthlySavings.reduce((total, month) => total + month.savings, 0);
+    const totalSavings = monthlySavings.reduce((total, savings) => total + savings.amount, 0);
+    const totalExtraExpenses = extraExpenses.reduce((total, expense) => total + expense.amount, 0);
+    return Math.max(0, totalSavings - totalExtraExpenses);
   };
 
   const calculateAverageMonthlySavings = () => {
-    if (monthlySavings.length === 0) return 0;
-    return calculateTotalSavings() / monthlySavings.length;
+    if (mockMonthlySavings.length === 0) return 0;
+    return calculateTotalSavings() / mockMonthlySavings.length;
   };
 
   const calculateGoalProgress = () => {
@@ -76,19 +83,19 @@ const UserDashboard: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fadeInUp">
       {/* Saudação Personalizada */}
-      <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
-        <h1 className="text-3xl font-bold text-white mb-2">
+      <div className="bg-[#1A3A1A] p-6 rounded-xl border border-[#6B8A6B] shadow-lg hover-lift">
+        <h1 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white to-[#B8D4B8] bg-clip-text text-transparent">
           Olá, {user?.name}! 👋
         </h1>
-        <p className="text-gray-300">Bem-vindo ao seu dashboard financeiro personalizado</p>
+        <p className="text-[#B8D4B8]">Bem-vindo ao seu dashboard financeiro personalizado</p>
       </div>
 
       {/* Informações Pessoais */}
       {personalInfo && (
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
-          <h2 className="text-2xl font-bold text-white mb-4">👤 Suas Informações</h2>
+        <div className="bg-[#1A3A1A] p-6 rounded-xl border border-[#6B8A6B] shadow-lg hover-lift animate-slideInRight">
+          <h2 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-white to-[#B8D4B8] bg-clip-text text-transparent">👤 Suas Informações</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-semibold text-green-400 mb-3">Dados Pessoais</h3>
@@ -153,8 +160,8 @@ const UserDashboard: React.FC = () => {
 
       {/* Meta Financeira - Só mostra se tiver meta */}
       {goal && goal.name && (
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
-          <h2 className="text-2xl font-bold text-white mb-4">🎯 Sua Meta</h2>
+        <div className="bg-[#1A3A1A] p-6 rounded-xl border border-[#6B8A6B] shadow-lg hover-lift">
+          <h2 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-white to-[#B8D4B8] bg-clip-text text-transparent">🎯 Sua Meta</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <h3 className="text-lg font-semibold text-yellow-400 mb-2">Meta</h3>
@@ -196,7 +203,7 @@ const UserDashboard: React.FC = () => {
 
       {/* Mensagem se não tiver dados financeiros */}
       {(!personalInfo || (!personalInfo.monthlyIncome && !personalInfo.monthlyFixedExpenses && !personalInfo.monthlyVariableExpenses)) && (
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A] text-center">
+        <div className="bg-[#3A5A3A] p-6 rounded-xl border border-[#6B8A6B] text-center">
           <h3 className="text-xl font-bold text-yellow-400 mb-2">📝 Complete suas Informações</h3>
           <p className="text-gray-300 mb-4">
             Para ver seu dashboard completo, preencha suas informações financeiras na aba "Informações"
@@ -212,34 +219,55 @@ const UserDashboard: React.FC = () => {
 
       {/* Gráfico de Economia Mensal - Só mostra se tiver dados financeiros */}
       {personalInfo && (personalInfo.monthlyIncome || personalInfo.monthlyFixedExpenses || personalInfo.monthlyVariableExpenses) && (
-        <div className="bg-[#2B402B] p-6 rounded-xl border border-[#4A5D4A]">
-          <h2 className="text-2xl font-bold text-white mb-4">📊 Sua Economia Mensal</h2>
+        <div className="bg-[#1A3A1A] p-6 rounded-xl border border-[#6B8A6B] shadow-lg hover-lift">
+          <h2 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-white to-[#B8D4B8] bg-clip-text text-transparent">📊 Sua Economia Mensal</h2>
           
           {/* Resumo */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="bg-[#122112] p-4 rounded-lg text-center">
+            <div className="bg-[#1A3A1A] p-4 rounded-lg text-center border border-[#6B8A6B]">
               <h3 className="text-green-400 font-semibold mb-2">Total Economizado</h3>
               <p className="text-2xl font-bold text-white">{formatCurrency(calculateTotalSavings())}</p>
             </div>
             
-            <div className="bg-[#122112] p-4 rounded-lg text-center">
+            <div className="bg-[#1A3A1A] p-4 rounded-lg text-center border border-[#6B8A6B]">
               <h3 className="text-blue-400 font-semibold mb-2">Média Mensal</h3>
               <p className="text-2xl font-bold text-white">{formatCurrency(calculateAverageMonthlySavings())}</p>
             </div>
             
-            <div className="bg-[#122112] p-4 rounded-lg text-center">
+            <div className="bg-[#1A3A1A] p-4 rounded-lg text-center border border-[#6B8A6B]">
               <h3 className="text-yellow-400 font-semibold mb-2">Último Mês</h3>
               <p className="text-2xl font-bold text-white">
-                {monthlySavings.length > 0 ? formatCurrency(monthlySavings[monthlySavings.length - 1].savings) : 'R$ 0,00'}
+                {monthlySavings.length > 0 ? formatCurrency(monthlySavings[monthlySavings.length - 1].amount) : 'R$ 0,00'}
               </p>
             </div>
+          </div>
+
+          {/* Botões para Gastos Extras e Transações */}
+          <div className="mb-6 text-center space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setShowExtraExpenseModal(true)}
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 border border-red-500 font-medium"
+              >
+                💸 Registrar Gasto Extra
+              </button>
+              <button
+                onClick={() => setShowAddTransactionModal(true)}
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 border border-green-500 font-medium"
+              >
+                ➕ Adicionar Transação
+              </button>
+            </div>
+            <p className="text-gray-400 text-sm">
+              Gastos extras descontam da meta e patrimônio líquido
+            </p>
           </div>
 
           {/* Gráfico de Barras */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white mb-4">Evolução dos Últimos 6 Meses</h3>
             <div className="space-y-3">
-              {monthlySavings.map((month, index) => (
+              {mockMonthlySavings.map((month, index) => (
                 <div key={index} className="flex items-center space-x-4">
                   <div className="w-20 text-sm text-gray-300 font-medium">{month.month}</div>
                   <div className="flex-1">
@@ -279,6 +307,22 @@ const UserDashboard: React.FC = () => {
           </div>
         </div>
       )}
+
+
+      {/* Modal de Gastos Extras */}
+      <ExtraExpenseModal 
+        isOpen={showExtraExpenseModal} 
+        onClose={() => setShowExtraExpenseModal(false)} 
+      />
+
+      {/* Modal de Adicionar Transação */}
+      <AddTransactionModal
+        isOpen={showAddTransactionModal}
+        onClose={() => setShowAddTransactionModal(false)}
+        onSuccess={() => {
+          console.log('Transação adicionada com sucesso!');
+        }}
+      />
     </div>
   );
 };

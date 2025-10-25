@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface AddTransactionModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface AddTransactionModalProps {
 }
 
 const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClose, onSuccess }) => {
+  const { addTransaction } = useAuth();
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
@@ -52,7 +54,15 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
       // Simular envio para API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Em produção, fazer chamada para a API
+      // Adicionar transação usando o contexto
+      addTransaction({
+        description: formData.description,
+        amount: parseFloat(formData.amount),
+        type: formData.type,
+        category: formData.category,
+        date: new Date(formData.date).toISOString()
+      });
+      
       console.log('Transação adicionada:', formData);
       
       onSuccess();
@@ -87,7 +97,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#2B402B] rounded-xl p-6 w-full max-w-md border border-[#4A5D4A]">
+      <div className="bg-[#3A5A3A] rounded-xl p-6 w-full max-w-md border border-[#6B8A6B]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-white">Nova Transação</h2>
           <button 
@@ -141,7 +151,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
               type="text"
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-[#122112] border border-[#4A5D4A] text-white placeholder-gray-400"
+              className="w-full p-3 rounded-lg bg-[#122112] border border-[#6B8A6B] text-white placeholder-gray-400"
               placeholder="Ex: Supermercado, Salário, etc."
               required
             />
@@ -156,7 +166,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
               min="0"
               value={formData.amount}
               onChange={(e) => setFormData(prev => ({ ...prev, amount: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-[#122112] border border-[#4A5D4A] text-white placeholder-gray-400"
+              className="w-full p-3 rounded-lg bg-[#122112] border border-[#6B8A6B] text-white placeholder-gray-400"
               placeholder="0,00"
               required
             />
@@ -168,7 +178,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
             <select
               value={formData.category}
               onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-[#122112] border border-[#4A5D4A] text-white"
+              className="w-full p-3 rounded-lg bg-[#122112] border border-[#6B8A6B] text-white"
             >
               {categories[formData.type].map(category => (
                 <option key={category.value} value={category.value}>
@@ -185,7 +195,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
               type="date"
               value={formData.date}
               onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-[#122112] border border-[#4A5D4A] text-white"
+              className="w-full p-3 rounded-lg bg-[#122112] border border-[#6B8A6B] text-white"
               required
             />
           </div>
@@ -197,7 +207,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
               type="text"
               value={formData.location}
               onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-[#122112] border border-[#4A5D4A] text-white placeholder-gray-400"
+              className="w-full p-3 rounded-lg bg-[#122112] border border-[#6B8A6B] text-white placeholder-gray-400"
               placeholder="Ex: Shopping Center, etc."
             />
           </div>
@@ -208,7 +218,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ isOpen, onClo
             <textarea
               value={formData.notes}
               onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-              className="w-full p-3 rounded-lg bg-[#122112] border border-[#4A5D4A] text-white placeholder-gray-400 h-20 resize-none"
+              className="w-full p-3 rounded-lg bg-[#122112] border border-[#6B8A6B] text-white placeholder-gray-400 h-20 resize-none"
               placeholder="Observações adicionais..."
             />
           </div>

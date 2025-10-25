@@ -2,6 +2,7 @@ export const DASHBOARD_TABS = [
   { label: 'Patrimônio líquido', value: 'patrimonio' },
   { label: 'Conta corrente', value: 'conta' },
   { label: 'Poupança', value: 'poupanca' },
+  { label: 'Economia Mensal', value: 'economia' },
 ] as const;
 
 export type DashboardTab = typeof DASHBOARD_TABS[number]['value'];
@@ -34,17 +35,24 @@ export const DASHBOARD_CONFIG: Record<DashboardTab, {
     period: 'Últimos 30 dias',
     growth: '+5%',
   },
+  economia: {
+    title: 'Economia Mensal',
+    subtitle: 'Controle suas economias e progresso das metas',
+    chartLabel: 'Economia Mensal',
+    period: 'Este mês',
+    growth: '+15%',
+  },
 };
 
 // Mock data para gráficos
 export const CHART_DATA = {
   patrimonio: [
-    { name: 'Jan', value: 9000 },
-    { name: 'Fev', value: 12000 },
-    { name: 'Mar', value: 9500 },
-    { name: 'Abr', value: 11000 },
-    { name: 'Mai', value: 13000 },
-    { name: 'Jun', value: 12345 },
+    { name: 'Jan', value: 2000 },
+    { name: 'Fev', value: 1800 },
+    { name: 'Mar', value: 2200 },
+    { name: 'Abr', value: 2100 },
+    { name: 'Mai', value: 2400 },
+    { name: 'Jun', value: 2300 },
   ],
   conta: [
     { name: 'Jul 1', value: 8000 },
@@ -64,11 +72,11 @@ export const CHART_DATA = {
 
 export const THEME = {
   colors: {
-    background: '#122112',
-    cardBg: '#2B402B',
-    cardBgDark: '#1a2d1a',
-    border: '#4A5D4A',
-    borderLight: '#264526',
+    background: '#1A3A1A',
+    cardBg: '#3A5A3A',
+    cardBgDark: '#2A4A2A',
+    border: '#6B8A6B',
+    borderLight: '#4A7C4A',
     textPrimary: '#ffffff',
     textSecondary: '#9EBF9E',
     textMuted: '#E5E8EB',

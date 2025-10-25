@@ -66,3 +66,4 @@ if ($backendStatus -and $frontendStatus) {
 Write-Host ""
 Read-Host "Pressione Enter para sair"
 
+
