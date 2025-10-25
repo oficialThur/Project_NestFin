@@ -94,3 +94,4 @@ namespace NestFin.Controllers
         public string ResetLink { get; set; } = string.Empty;
     }
 }
+

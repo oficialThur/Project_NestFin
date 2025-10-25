@@ -177,3 +177,4 @@ Equipe NestFin`;
     localStorage.removeItem('nestfin_emails');
   }
 }
+

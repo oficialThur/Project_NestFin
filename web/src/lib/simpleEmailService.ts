@@ -130,3 +130,4 @@ export class SimpleEmailService {
     localStorage.removeItem('nestfin_emails');
   }
 }
+
