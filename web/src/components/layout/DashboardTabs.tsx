@@ -1,9 +1,9 @@
 import React from 'react';
-import { DASHBOARD_TABS } from '@/constants/dashboard';
+import { DASHBOARD_TABS, DashboardTab } from '@/constants/dashboard';
 
 interface DashboardTabsProps {
-  selected: string;
-  onSelect: (value: string) => void;
+  selected: DashboardTab;
+  onSelect: (value: DashboardTab) => void;
 }
 
 const DashboardTabs: React.FC<DashboardTabsProps> = ({ selected, onSelect }) => {

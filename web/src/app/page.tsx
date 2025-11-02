@@ -8,8 +8,6 @@ import PatrimonioDashboard from '@/components/dashboard/PatrimonioDashboard';
 import ContaCorrenteDashboard from '@/components/dashboard/ContaCorrenteDashboard';
 import PoupancaDashboard from '@/components/dashboard/PoupancaDashboard';
 import EconomiaDashboard from '@/components/dashboard/EconomiaDashboard';
-import RealTimeDashboard from '@/components/dashboard/RealTimeDashboard';
-import PersonalDashboard from '@/components/dashboard/PersonalDashboard';
 import UserDashboard from '@/components/dashboard/UserDashboard';
 import AddTransactionModal from '@/components/dashboard/AddTransactionModal';
 import Metas from '@/components/metas/Metas';
@@ -19,15 +17,15 @@ import PersonalInfoView from '@/components/views/PersonalInfoView';
 import EmailDebugger from '@/components/debug/EmailDebugger';
 import { DASHBOARD_CONFIG, DashboardTab } from '@/constants/dashboard';
 
-type DashboardTabsProps = {
-  selected: "patrimonio" | "conta" | "poupanca" | "economia";
-  onSelect: (value: "patrimonio" | "conta" | "poupanca" | "economia") => void;
+interface DashboardTabsProps {
+  selected: DashboardTab;
+  onSelect: (value: DashboardTab) => void;
 }
 
 // Componente para exibir valor do patrimônio líquido
 const PatrimonioValue = () => {
   const { personalInfo, extraExpenses } = useAuth();
-  
+
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -37,12 +35,12 @@ const PatrimonioValue = () => {
 
   const calculateNetWorth = () => {
     if (!personalInfo) return 0;
-    
+
     const income = personalInfo.monthlyIncome || 0;
     const fixedExpenses = personalInfo.monthlyFixedExpenses || 0;
     const variableExpenses = personalInfo.monthlyVariableExpenses || 0;
     const totalExtraExpenses = extraExpenses.reduce((total, expense) => total + expense.amount, 0);
-    
+
     // Patrimônio líquido = ganhos - gastos fixos - gastos variáveis - gastos extras
     return income - fixedExpenses - variableExpenses - totalExtraExpenses;
   };
@@ -53,7 +51,7 @@ const PatrimonioValue = () => {
 // Componente para exibir valor da poupança
 const PoupancaValue = () => {
   const { monthlySavings, extraExpenses } = useAuth();
-  
+
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -128,7 +126,10 @@ const PageContent = () => {
         {mainView === 'dashboard' ? (
           <>
             <TitleDashboard title={dashboardConfig.title} subtitle={dashboardConfig.subtitle} />
-            <DashboardTabs selected={selectedTab} onSelect={setSelectedTab} />
+            <DashboardTabs
+              selected={selectedTab}
+              onSelect={setSelectedTab}
+            />
             {(selectedTab === 'patrimonio' || selectedTab === 'poupanca') && (
               <div className="w-full max-w-[960px] px-4 sm:px-0">
                 <div className="bg-[#2B402B] rounded-lg flex flex-col justify-start p-4 sm:p-6">
@@ -148,7 +149,7 @@ const PageContent = () => {
             <div className="w-full flex justify-center px-4">
               {renderDashboard()}
             </div>
-            
+
             {/* Modal para adicionar transação */}
             <AddTransactionModal
               isOpen={showAddTransaction}
