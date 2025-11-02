@@ -1,64 +1,134 @@
-# Dependencies
+# Next.js (Frontend)
+# Dependências e pacotes
 node_modules/
-.pnp
+.pnp/
 .pnp.js
+package-lock.json
+yarn.lock
 
-# Testing
-/coverage
-
-# Next.js
-/.next/
-# Ignore .next inside the web/ subfolder
+# Arquivos de build e cache
+.next/
 /web/.next/
-/out/
-
-# Production
-/build
-
-# Misc
-.DS_Store
-*.pem
-
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Local env files
-.env*.local
-.env
-
-# Vercel
-.vercel
-
-# TypeScript
+out/
+build/
+dist/
+.swc/
+.turbo
 *.tsbuildinfo
-next-env.d.ts
 
-# .NET
+# Testes e cobertura
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+
+# C# / .NET (Backend)
+# Binários e objetos
 bin/
 obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Arquivos de build e cache
 *.user
+*.userosscache
 *.suo
 *.cache
 *.dll
 *.exe
 *.pdb
-*.log
+project.lock.json
+artifacts/
+*.pidb
+*.svclog
+*.scc
 .vs/
+msbuild.log
+
+# Docker
+.docker/
+docker-compose.override.yml
+*.env
+.env*
+!.env.example
+docker-volumes/
+*.dockerignore
+
+# AWS e Deploy
+.aws/
+.elasticbeanstalk/
+.ebextensions/
+.eb/
+aws.json
+aws.yml
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+
+# Logs e diagnóstico
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# IDEs e editores
+.idea/
 .vscode/
 *.swp
 *.swo
 *~
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+.settings/
+*.code-workspace
 
-# Database
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Banco de dados e dados sensíveis
 *.db
 *.sqlite
 *.sqlite3
+*.mdf
+*.ldf
+*.ndf
 
-# AWS
-.aws/
+# Cache e arquivos temporários
+.temp/
+.tmp/
+.cache/
+*.bak
+*.cache
+*.temp
+.eslintcache
+.prettiercache
+.vercel
 
-# IDE
-.idea/
-*.sln.iml 
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Misc
+.DS_Store
+*.pem
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
