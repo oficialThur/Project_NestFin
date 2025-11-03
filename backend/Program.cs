@@ -10,6 +10,8 @@ using NestFin.API.Services;
 using NestFin.API.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args); // Host e DI
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 
 // Controllers + Swagger
 builder.Services.AddControllers();
